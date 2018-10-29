@@ -1,2 +1,7 @@
 
+test.script
+
 *.pyc
+.*.md
+*.pdf
+env

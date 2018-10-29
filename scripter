@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+
+from time import strftime
+from classes import tags
+
+import pypandoc
+import argparse
+
+
+def _parse_args():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('-o', '--dest', type=str, default='.' + strftime('%Y%m%d_%H%M%S') + '.pdf', help='The path to the pdf file that will be generated.')
+    parser.add_argument('file', type=str, default='the.script', help='Path to scripter file.')
+
+    return parser.parse_args()
+
+def _parse_head(file, dest_md):
+
+    t = tags.tags()
+
+    for line in file:
+        if t.script_term in line:
+            break
+        print(line)
+
+    return
+
+def _parse_script(file, dest_md):
+    return
+
+def generate_markdown(file, dest):
+
+    f = open(file)
+    d_mark = dest.replace('pdf', 'md', -1)
+#    d = open(d_mark, 'w')
+
+    _parse_head(f, None)
+
+#    _parse_script(f, d)
+    
+    f.close()
+#    d.close()
+    return d_mark
+
+def generate_pdf(md_path):
+    return
+
+if __name__ == '__main__':
+    args = _parse_args();
+    md_path = generate_markdown(args.file, args.dest);
+    generate_pdf(md_path)
