@@ -2,6 +2,7 @@
 
 from time import strftime
 from classes import tags
+from shutil import copyfile
 
 import pypandoc
 import argparse
@@ -15,14 +16,41 @@ def _parse_args():
 
     return parser.parse_args()
 
+def _tag_switch(label):
+    label = label.lower()
+    return {
+        'title': '<div class="header" style="text-align:center; font-size:50px"><p>',
+        'author': '<div class="center"><p>written by\n\n',
+        'end': '</p></div>'
+
+    }.get(label, '<div><p>')
+
 def _parse_head(file, dest_md):
 
+    copyfile('aux_files/style', dest_md)
+
+    headers = []
+    
     t = tags.tags()
 
     for line in file:
         if t.script_term in line:
             break
+        headers.append(line)
         print(line)
+
+    print(headers)
+
+    with open(dest_md, 'a') as dest:
+        for h in headers:
+            if ':' in h:
+                label,txt = h.split(':')
+                txt = txt.strip()
+                h_tags = _tag_switch(label)
+                if(h_tags):
+                    dest.write(_tag_switch(label))
+                    dest.write(txt)
+                    dest.write(_tag_switch('end'))
 
     return
 
@@ -35,7 +63,7 @@ def generate_markdown(file, dest):
     d_mark = dest.replace('pdf', 'md', -1)
 #    d = open(d_mark, 'w')
 
-    _parse_head(f, None)
+    _parse_head(f, d_mark)
 
 #    _parse_script(f, d)
     

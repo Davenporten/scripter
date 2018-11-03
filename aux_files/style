@@ -1,0 +1,16 @@
+<style>
+* {
+    font-family: "Courier New", Monospace, serif;
+}
+
+.center {
+    text-align: center;
+}
+
+.header {
+    color: #000;
+    font-weight: 700;
+    text-decoration: underline;
+}
+</style>
+
