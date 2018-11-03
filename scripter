@@ -20,7 +20,8 @@ def _tag_switch(label):
     label = label.lower()
     return {
         'title': '<div class="header" style="text-align:center; font-size:50px"><p>',
-        'author': '<div class="center"><p>written by\n\n',
+        'author': '<div class="center"><br /><p>written by\n\n',
+        'illustrator': '<div class="center"><br /><p>illustrated by\n\n',
         'end': '</p></div>'
 
     }.get(label, '<div><p>')
